@@ -1,0 +1,15 @@
+[sonic_accton]
+accton-as7716    ansible_host=10.36.79.81    ansible_ssh_user=admin    ansible_ssh_pass=YourPaSsWoRd
+
+[sonic_accton:vars]
+hwsku="Accton-AS7716-32X"
+iface_speed='100000'
+mgmt_subnet_mask_length='22'
+
+
+[sonic:children]
+sonic_accton
+
+[lab:children]
+sonic
+

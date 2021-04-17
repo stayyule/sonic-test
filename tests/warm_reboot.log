@@ -1,0 +1,180 @@
+============================= test session starts ==============================
+platform linux2 -- Python 2.7.12, pytest-4.6.5, py-1.8.1, pluggy-0.13.1
+ansible: 2.8.7
+rootdir: /var/johnar/sonic-mgmt/tests, inifile: pytest.ini
+plugins: ansible-2.2.2, xdist-1.28.0, repeat-0.8.0, forked-1.1.3
+collected 1 item
+
+ixia/test_ixia_demo_warm_reboot.py::test_ixia_demo_warm_reboot 
+-------------------------------- live log setup --------------------------------
+2020-09-29 08:44:08 [    INFO] dut accton-as7716 belongs to groups [u'lab', u'sonic', u'sonic_accton'] (conftest.py:304)
+2020-09-29 08:44:08 [    INFO] skip empty var file ../ansible/group_vars/all/env.yml (conftest.py:315)
+2020-09-29 08:44:08 [    INFO] skip empty var file ../ansible/group_vars/all/corefile_uploader.yml (conftest.py:315)
+2020-09-29 08:44:09 [    INFO] Start pre-test sanity check (__init__.py:53)
+2020-09-29 08:44:09 [    INFO] Found marker: m.name=disable_loganalyzer, m.args=(), m.kwargs={} (__init__.py:63)
+2020-09-29 08:44:09 [    INFO] Sanity check settings: skip_sanity=True, check_items=set(['services', 'interfaces', 'processes', 'dbmemory']), allow_recover=False, recover_method=adaptive, post_check=False (__init__.py:89)
+2020-09-29 08:44:09 [    INFO] Skip sanity check according to command line argument or configuration of test script. (__init__.py:92)
+2020-09-29 08:44:09 [    INFO] Add start marker into DUT syslog (__init__.py:14)
+2020-09-29 08:44:10 [    INFO] using python version 2.7.12 (default, Apr 15 2020, 17:07:12) 
+[GCC 5.4.0 20160609] (connection.py:81)
+2020-09-29 08:44:10 [    INFO] using ixnetwork-restpy version 1.0.52 (connection.py:83)
+2020-09-29 08:44:10 [ WARNING] Verification of certificates is disabled (connection.py:242)
+2020-09-29 08:44:10 [    INFO] The package will automatically determine the test tool platform and rest_port using the 10.36.78.241 address. (connection.py:239)
+2020-09-29 08:44:10 [ WARNING] Unable to connect to test tool at http://10.36.78.241:443. (connection.py:242)
+2020-09-29 08:44:10 [    INFO] Connection established to `https://10.36.78.241:443 on linux` (connection.py:239)
+2020-09-29 08:44:20 [    INFO] using IxNetwork api server version 9.10.2007.7 (connection.py:239)
+-------------------------------- live log call ---------------------------------
+2020-09-29 08:44:21 [    INFO] 获取拓扑连接信息。 (ixia_helpers.py:654)
+2020-09-29 08:44:21 [    INFO] 创建 Ixia Session IP。 (ixia_helpers.py:654)
+2020-09-29 08:44:21 [    INFO] 加载配置文件。 (ixia_helpers.py:654)
+2020-09-29 08:44:23 [    INFO] 配置License server信息。 (ixia_helpers.py:654)
+2020-09-29 08:44:26 [    INFO] 连接机框，开始抢占端口[[u'10.36.78.8', '1', '1'], [u'10.36.78.8', '1', '3']] (ixia_helpers.py:654)
+2020-09-29 08:44:26 [    INFO] 连接机框 10.36.78.8，开始抢占端口1/1 (ixia_helpers.py:654)
+2020-09-29 08:44:26 [    INFO] 连接机框 10.36.78.8，开始抢占端口1/3 (ixia_helpers.py:654)
+2020-09-29 08:45:05 [    INFO] 测试仪开启ARP应答，主动发送ARP请求。 (ixia_helpers.py:654)
+2020-09-29 08:45:05 [    INFO] 建立BGP邻居关系, 发布BGP路由 (ixia_helpers.py:654)
+2020-09-29 08:45:09 [    INFO] 等待协议建立完成，检查协议状态和数量是否正确。 (ixia_helpers.py:654)
+2020-09-29 08:45:40 [    INFO] 
+
+Protocol STATS: Row:0  View:Protocols Summary  Sampled:2020-09-29 08:45:40.305003 UTC
+	Protocol Type: BGP Peer
+	Sessions Up: 32
+	Sessions Down: 0
+	Sessions Not Started: 0
+	Sessions Total: 32
+	Average Setup Rate: N/A
+	Average Teardown Rate: N/A
+Row:1  View:Protocols Summary  Sampled:2020-09-29 08:45:40.305003 UTC
+	Protocol Type: IPv4
+	Sessions Up: 32
+	Sessions Down: 0
+	Sessions Not Started: 0
+	Sessions Total: 32
+	Average Setup Rate: N/A
+	Average Teardown Rate: N/A
+
+
+ (ixia_helpers.py:654)
+2020-09-29 08:45:42 [    INFO] 
+
+BGP STATS: Row:0  View:BGP Peer Per Port  Sampled:2020-09-29 08:45:42.312918 UTC
+	Port: 10GE LAN - 001
+	Sessions Up: 16
+	Sessions Down: 0
+	Sessions Not Started: 0
+	Sessions Total: 16
+	Sessions Configured: 16
+	Sessions Established: 16
+	Session Flap Count: 0
+	Idle State Count: 0
+	Connect State Count: 0
+	Active State Count: 0
+	OpenSent State Count: 0
+	OpenConfirm State Count: 0
+	Established State Count: 16
+	Routes Advertised: 8000
+	Routes Withdrawn: 0
+	Messages Tx: 8171
+	Messages Rx: 684
+	Updates Tx: 8000
+	Updates Rx: 529
+	Routes Rx: 256016
+	Route Withdraws Rx: 0
+	Opens Tx: 16
+	Opens Rx: 16
+	KeepAlives Tx: 155
+	KeepAlives Rx: 139
+	Notifications Tx: 0
+	Notifications Rx: 0
+	Hold Timer Expireds Tx: 0
+	Hold Timer Expireds Rx: 0
+	Graceful Restarts Attempted: 0
+	Graceful Restarts Failed: 0
+	Routes Rx Graceful Restart: 0
+	End of RIB Rx: 0
+Row:1  View:BGP Peer Per Port  Sampled:2020-09-29 08:45:42.312918 UTC
+	Port: 10GE LAN - 002
+	Sessions Up: 16
+	Sessions Down: 0
+	Sessions Not Started: 0
+	Sessions Total: 16
+	Sessions Configured: 16
+	Sessions Established: 16
+	Session Flap Count: 0
+	Idle State Count: 0
+	Connect State Count: 0
+	Active State Count: 0
+	OpenSent State Count: 0
+	OpenConfirm State Count: 0
+	Established State Count: 16
+	Routes Advertised: 8000
+	Routes Withdrawn: 0
+	Messages Tx: 8167
+	Messages Rx: 663
+	Updates Tx: 8000
+	Updates Rx: 512
+	Routes Rx: 256016
+	Route Withdraws Rx: 0
+	Opens Tx: 18
+	Opens Rx: 18
+	KeepAlives Tx: 149
+	KeepAlives Rx: 131
+	Notifications Tx: 0
+	Notifications Rx: 2
+	Hold Timer Expireds Tx: 0
+	Hold Timer Expireds Rx: 0
+	Graceful Restarts Attempted: 0
+	Graceful Restarts Failed: 0
+	Routes Rx Graceful Restart: 0
+	End of RIB Rx: 0
+
+
+ (ixia_helpers.py:654)
+2020-09-29 08:45:42 [    INFO] 所有BGP Peer已经全部到达Established状态 (ixia_helpers.py:654)
+2020-09-29 08:45:42 [    INFO] Ixia测试仪表下发流量配置，发送路由验证流量。 (ixia_helpers.py:654)
+2020-09-29 08:46:06 [    INFO] warm reboot started (test_ixia_demo_warm_reboot.py:86)
+2020-09-29 08:46:07 [    INFO] warm reboot cmd sent out (test_ixia_demo_warm_reboot.py:89)
+2020-09-29 08:48:07 [    INFO] Ixia测试仪表停止流量。 (ixia_helpers.py:654)
+2020-09-29 08:48:16 [    INFO] Ixia测试仪表根据需求按照Flow统计方式定制统计结果。 (ixia_helpers.py:654)
+2020-09-29 08:48:18 [    INFO] 
+
+STATS: Row:0  View:Flow Statistics  Sampled:2020-09-29 08:48:18.481730 UTC
+	Tx Port: 10GE LAN - 001
+	Rx Port: 10GE LAN - 002
+	Traffic Item: Traffic Item 1
+	Tx Frames: 1357420
+	Rx Frames: 1241381
+	Frames Delta: 116039
+	Loss %: 8.548
+	Packet Loss Duration (ms): 11603.900
+	Tx Frame Rate: 0.000
+	Rx Frame Rate: 0.000
+	Tx L1 Rate (bps): 0.000
+	Rx L1 Rate (bps): 0.000
+	Rx Bytes: 86896670
+	Tx Rate (Bps): 0.000
+	Rx Rate (Bps): 0.000
+	Tx Rate (bps): 0.000
+	Rx Rate (bps): 0.000
+	Tx Rate (Kbps): 0.000
+	Rx Rate (Kbps): 0.000
+	Tx Rate (Mbps): 0.000
+	Rx Rate (Mbps): 0.000
+	Store-Forward Avg Latency (ns): 16479
+	Store-Forward Min Latency (ns): 0
+	Store-Forward Max Latency (ns): 12592620
+	First TimeStamp: 00:00:02.002
+	Last TimeStamp: 00:02:17.743
+
+
+ (ixia_helpers.py:654)
+2020-09-29 08:48:18 [    INFO] 
+Row:0  TxPort:10GE LAN - 001  RxPort:10GE LAN - 002  TxFrames:1357420  RxFrames:1241381 Packet Loss Duration (ms):11603.900
+ (ixia_helpers.py:654)
+2020-09-29 08:48:18 [    INFO] Packet Loss Duration (ms)：11603.900 (test_ixia_demo_warm_reboot.py:107)
+PASSED                                                                   [100%]
+------------------------------ live log teardown -------------------------------
+2020-09-29 08:48:32 [    INFO] Add end marker into DUT syslog (__init__.py:25)
+
+
+========================== 1 passed in 268.08 seconds ==========================

@@ -1,0 +1,6 @@
+# conf-name,group-name,topo,ptf_image_name,ptf,ptf_ip,server,vm_base,dut,comment
+vms-example-ixia-1,vms6-1,t1,docker-ptf-ixia,example-ixia-ptf-1,10.36.78.241/32,server_6,VM0600,accton-as7716,superman
+vms-example-ixia-2,vms1-1,t0,localptf,ptf_ptf1,10.36.78.81/22,server_1,VM0100,accton-as7716,superman
+vms-example-ixia-3,vms1-1,t1,ptf-n,ptf_ptf1,10.36.78.81/22,server_1,VM0100,accton-as7716,superman
+vms-kvm-t1,vms2-2,t0,localptf,ptf-unknown,10.36.78.82/22,server_2,VM0200,[vlab-01],Tests virtual switch vm
+pyh-example-ixia-1,vms1_1,t1,localptf,ptf-unknown,10.36.78.241/23,server_6,VM0601,accton-as7716,pyh

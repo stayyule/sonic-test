@@ -1,0 +1,4 @@
+---
+ansible_user: user
+ansible_password: linux123
+ansible_become_password: linux123

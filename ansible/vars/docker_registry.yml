@@ -1,0 +1,4 @@
+docker_registry_host: keysigt.yy.cn
+
+docker_registry_username: wbox
+docker_registry_password: wbox.com

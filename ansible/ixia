@@ -1,0 +1,58 @@
+[vm_host_6]
+STR-ACS-SERV-06 ansible_host=11.1.1.84
+
+[vm_host:children]
+vm_host_6
+
+[vms_6]
+VM0600 ansible_host=10.36.78.8
+VM0601 ansible_host=10.39.7.12
+VM0602 ansible_host=11.1.1.146
+VM0603 ansible_host=11.1.1.148
+VM0604 ansible_host=11.1.1.150
+VM0605 ansible_host=11.1.1.152
+VM0606 ansible_host=11.1.1.154
+VM0607 ansible_host=11.1.1.156
+VM0608 ansible_host=11.1.1.158
+VM0609 ansible_host=11.1.1.160
+VM0610 ansible_host=11.1.1.162
+VM0611 ansible_host=11.1.1.164
+VM0612 ansible_host=11.1.1.166
+VM0613 ansible_host=11.1.1.168
+VM0614 ansible_host=11.1.1.170
+VM0615 ansible_host=11.1.1.144
+VM0616 ansible_host=11.1.1.146
+VM0617 ansible_host=11.1.1.148
+VM0618 ansible_host=11.1.1.150
+VM0619 ansible_host=11.1.1.152
+VM0620 ansible_host=11.1.1.154
+VM0621 ansible_host=11.1.1.156
+VM0622 ansible_host=11.1.1.158
+VM0623 ansible_host=11.1.1.160
+VM0624 ansible_host=11.1.1.162
+VM0625 ansible_host=11.1.1.164
+VM0626 ansible_host=11.1.1.166
+VM0627 ansible_host=11.1.1.168
+VM0628 ansible_host=11.1.1.170
+VM0629 ansible_host=11.1.1.144
+VM0630 ansible_host=11.1.1.146
+VM0631 ansible_host=11.1.1.148
+
+
+[ixia:children]
+vms_6
+
+
+[server_6:children]
+vm_host_6
+vms_6
+
+[server_6:vars]
+host_var_file=host_vars/STR-ACS-SERV-06.yml
+license_server_ip=10.39.7.12
+license_mode=subscription
+license_tier=tier3-10g
+
+
+[servers:children]
+server_6

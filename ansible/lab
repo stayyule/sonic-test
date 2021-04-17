@@ -1,0 +1,52 @@
+[sonic_accton]
+accton-as7716    ansible_host=10.36.79.81 ansible_ssh_user=admin    ansible_ssh_pass=YourPaSsWoRd
+
+[sonic_accton:vars]
+hwsku="Accton-AS7716-32X"
+iface_speed='100000'
+
+[sonic_s6000]
+lab-s6000-01      ansible_host=10.251.0.189
+vlab-01           ansible_host=10.36.78.210
+vlab-03           ansible_host=10.250.0.105
+
+[sonic_s6000:vars]
+hwsku="Force10-S6000"
+iface_speed='40000'
+
+[sonic_s6100]
+lab-s6100-01      ansible_host=10.251.0.190
+vlab-02           ansible_host=10.250.0.102
+
+[sonic_s6100:vars]
+hwsku="Force10-S6100"
+iface_speed='40000'
+
+[sonic_a7260]
+lab-a7260-01      ansible_host=10.251.0.191    hwsku="Arista-7260CX3-D108C8"
+
+[sonic_a7260:vars]
+iface_speed='100000'
+
+[sonic:children]
+sonic_s6000
+sonic_s6100
+sonic_a7260
+sonic_accton
+
+[ptf]
+ptf_ptf1    ansible_host=10.36.78.81    ansible_ssh_user=root    ansible_ssh_pass=root
+ptf_vms1-1  ansible_host=10.36.78.81 ansible_ssh_user=root ansible_ssh_pass=root
+ptf_vms6-1  ansible_host=10.250.0.100 ansible_ssh_user=root ansible_ssh_pass=root
+
+[lab:children]
+sonic
+fanout
+
+[lab:vars]
+mgmt_subnet_mask_length="22"
+
+[fanout]
+Accton-AS7716-Root     ansible_host=10.36.78.143   ansible_ssh_user=admin ansible_ssh_pass=YourPaSsWoRd    os=sonic
+Accton-AS7816       ansible_host=10.36.78.110    ansible_ssh_user=admin ansible_ssh_pass=YourPaSsWoRd     os=sonic
+str-msn2700-02    ansible_host=10.251.0.235 os=sonic
