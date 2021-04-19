@@ -1,0 +1,38 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "PyTest",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "python": "${command:python.interpreterPath}",
+            "module": "pytest",
+            "args": [
+                "--host-pattern","accton-as7716", "--testbed","pyh-example-ixia-1",
+                "${file}",
+                "--disable-pytest-warnings",
+                //"--html=report.html"
+            ],
+            //"cwd": "${workspaceRoot}",
+            "cwd": "${workspaceRoot}/tests",
+            "env": {},
+            "envFile": "${workspaceRoot}/.env"
+            /*"debugOptions": [
+                "WaitOnAbnormalExit",
+                "WaitOnNormalExit",
+                "RedirectOutput"
+            ]*/
+        },
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        }
+    ]
+}
