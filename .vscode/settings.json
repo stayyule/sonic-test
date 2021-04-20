@@ -1,12 +1,15 @@
 {
     "python.autoComplete.extraPaths": [
         "/var/johnar/.local/lib/python2.7/site-packages",
-        "/var/johnar/sonic-ixia/sonic-test/tests"
+        //"/var/johnar/sonic-ixia/sonic-test/tests",
+        "${workspaceRoot}/tests"
     ],
     "python.testing.pytestEnabled": false,
-    "python.linting.pylintPath": "/var/johnar/sonic-ixia/sonic-test/tests",
+    //"python.linting.pylintPath": "/var/johnar/sonic-test/tests",
+    "python.linting.pylintPath": "${workspaceRoot}/tests",
 
     "python.testing.promptToConfigure": false,
     "python.testing.unittestEnabled": false,
-    "python.testing.nosetestsEnabled": false
+    "python.testing.nosetestsEnabled": false,
+    "python.pythonPath": "/usr/bin/python2.7"
 }
