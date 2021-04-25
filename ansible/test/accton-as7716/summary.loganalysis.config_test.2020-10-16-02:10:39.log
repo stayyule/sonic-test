@@ -1,9 +1,0 @@
-
-LOG ANALYSIS SUMMARY
-FILE:    /tmp/syslog    MATCHES    0
-FILE:    /tmp/syslog    EXPECTED MATCHES    0
------------------------------------
-TOTAL MATCHES:                  0
-TOTAL EXPECTED MATCHES:         0
-TOTAL EXPECTED MISSING MATCHES: 1
------------------------------------
