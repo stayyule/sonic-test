@@ -1,7 +1,0 @@
-- `environment.md` 环境说明，拓扑说明，SONiC-mgmt环境搭建说明等
-- `automation.md` 自动化运行，脚本调用逻辑及文件
-- `scripting.md` 脚本开发相关
-- `workflow.md` 工作流及配置
-- `api.md` API说明文档
-- `sample.md` 示例
-- `debug.md` 调试断点日志等
