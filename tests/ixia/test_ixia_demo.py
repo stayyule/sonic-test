@@ -71,6 +71,25 @@ def test_ixia_demo(ixiahost,testbed, duthost):
     CmdList.append('ip neigh')
     CmdList.append('route')
     #ssh_dut(dut_ip, dut_usr, dut_pwd, configList=CmdList)
+    
+    intf1_config = (
+        "vtysh "
+        "-c 'configure terminal' "
+        "-c 'interface {} ' "
+        "-c 'no shutdown' "
+        "-c 'ip address 10.10.10.1/24' "
+        "-c 'exit' "
+        "-c 'interface {} ' "
+        "-c 'no shutdown' "
+        "-c 'ip address 10.20.10.1/24' "
+        "-c 'exit' "
+        "-c 'exit' "
+        "-c 'router bgp 65100' "
+        "-c 'neighbor 10.10.10.2 remote-as 64600' "
+        "-c 'neighbor 10.20.10.2 remote-as 64600' "
+        "-c 'end' ".format(intf['dut1port1'],intf['dut1port2'])
+    )
+    duthost.shell(intf1_config)
 
     
     ###############################################################
@@ -162,6 +181,25 @@ def test_ixia_demo(ixiahost,testbed, duthost):
     CmdList.append('exit')
     CmdList.append('no router bgp 65100')
     #ssh_dut(dut_ip, dut_usr, dut_pwd, configList=CmdList)
+    
+    clear_config = (
+        "vtysh "
+        "-c 'configure terminal' "
+        "-c 'interface {} ' "
+        "-c 'no shutdown' "
+        "-c 'no ip address 10.10.10.1/24' "
+        "-c 'exit' "
+        "-c 'interface {} ' "
+        "-c 'no shutdown' "
+        "-c 'no ip address 10.20.10.1/24' "
+        "-c 'exit' "
+        "-c 'exit' "
+        "-c 'router bgp 65100' "
+        "-c 'no neighbor 10.10.10.2 remote-as 64600' "
+        "-c 'no neighbor 10.20.10.2 remote-as 64600' "
+        "-c 'end' ".format(intf['dut1port1'],intf['dut1port2'])
+    )
+    duthost.shell(clear_config)
 
 
     ###############################################################

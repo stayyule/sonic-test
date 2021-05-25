@@ -58,7 +58,7 @@ def test_ixia_demo_ecmp(ixiahost,testbed, duthost):
     #2.4: 开启协议仿真进行测试
     logger_msg(u'测试仪开启ARP应答，主动发送ARP请求。')
     logger_msg(u'建立BGP邻居关系, 发布BGP路由')
-    pdb.set_trace()
+    # pdb.set_trace()
     #assert 1==0
     start_protocols(session)
     #time.sleep(30)
