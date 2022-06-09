@@ -15,11 +15,17 @@ from common.helpers.assertions import pytest_assert
 TO UPDATE
 """
 
-def test_ixia_demo(ixiahost,testbed, duthost):
+def test_ixia_demo(ixiahost,testbed, duthost,ansible_adhoc):
     
     ###############################################################
     #                   STEP1: 准备预置条件
     ###############################################################
+    
+    #多台DUT通过duthost下发配置
+    #from common.devices import SonicHost
+    #duthost = SonicHost(ansible_adhoc, testbed["duts"][0], gather_facts=True)
+    #dutres = duthost.command('sudo show platform summary')
+    #logger.info(dutres)
     
     #1.1 设置全局结果，默认为True, 如果中间检测点不通过，将该值更新为False
     result = True 
