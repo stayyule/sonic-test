@@ -639,7 +639,7 @@ def modify_vlan(session, portname, vlanid, index='0'):
             vports = topology.Ports
             if porthref in vports:
                 ethernet = topology.DeviceGroup.find()[int(index)].Ethernet.find()[0]
-                if math.isnan(vlanid):
+                if math.isnan(float(vlanid)):
                     ethernet.EnableVlans.Single(False)
                 else:
                     ethernet.EnableVlans.Single(True)
