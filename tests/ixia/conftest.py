@@ -296,12 +296,30 @@ def pytest_runtest_makereport(item, call):
 	print(time_stop)
 	csv_save_path='/var/johnar/sonic-mgmt/tests/ixia/reporter/'+format(timestamp_real_now)+'.csv'
         columns=['id','starttime','finishtime','result','report_file','info']
+	'''
         if os.path.lexists(csv_save_path):
 	    df_new = pd.DataFrame({"id": report.nodeid, "starttime": [time_start], "finishtime":[time_stop],"result":[call_result],"report_file":[report_file],'info':[resinfo]})
             df_new.to_csv(csv_save_path,index=False, mode='a', header=False,columns=columns)
         else:
             df = pd.DataFrame({"id": report.nodeid, "starttime": [time_start], "finishtime":[time_stop],"result":[call_result],"report_file":[report_file],'info':[resinfo]})
             df.to_csv(csv_save_path,index=False,columns=columns)
+	 '''
+	
+	if os.path.lexists(csv_save_path):
+            if call_result == 'PASSED':
+                df_new = pd.DataFrame({"id": report.nodeid, "starttime": [time_start], "finishtime": [time_stop], "result": [call_result],"report_file": [report_file], 'info': ["Normal"]})
+                df_new.to_csv(csv_save_path, index=False, mode='a', header=False, columns=columns)
+            else:
+                df_new = pd.DataFrame({"id": report.nodeid, "starttime": [time_start], "finishtime": [time_stop], "result": [call_result],"report_file": [report_file], 'info': [resinfo]})
+                df_new.to_csv(csv_save_path, index=False, mode='a', header=False, columns=columns)
+        else:
+            if call_result == 'PASSED':
+                df = pd.DataFrame({"id": report.nodeid, "starttime": [time_start], "finishtime": [time_stop], "result": [call_result],"report_file": [report_file], 'info': ["Normal"]})
+                df.to_csv(csv_save_path, index=False, columns=columns)
+            else:
+                df = pd.DataFrame({"id": report.nodeid, "starttime": [time_start], "finishtime": [time_stop], "result": [call_result],"report_file": [report_file], 'info': [resinfo]})
+                df.to_csv(csv_save_path, index=False, columns=columns)
+
             
 '''
  pd.DataFrame( {"id": report.nodeid, "starttime": [time_start], "finishtime": [time_stop], "result": [call_result],"result_file": [timestamp_real_now], 'info': [resinfo]}) pd.DataFrame({"id": report.nodeid, "starttime": [time_start], "finishtime":[time_stop],"result":[call_result],"result_file":[timestamp_real_now],'info':[resinfo]})        if setup_result == 'PASSED' \
