@@ -10,6 +10,9 @@ from ixnetwork_restpy import SessionAssistant
 import pandas as pd
 import re
 import sys
+
+from common.reboot import logger
+from common.ixia.ixia_helpers import *
 import time
 import os
 from os.path import dirname, abspath
@@ -146,13 +149,22 @@ def ixia_chassis(testbed, duthost):
 
     Args:
         duthost (pytest fixture): The duthost fixture. 
-        fanouthosts (pytest fixture): The fanouthosts fixture.s
+        fanouthosts (pytest fixture): The fanouthosts fixture.
 
     Returns:
         Dictionary of Ixia Chassis IP/IPs.
     """
+    host_ip = []
     host_name = testbed["vm_base"]
-    host_ip = duthost.host.options['inventory_manager'].get_host(host_name).get_vars()['ansible_host']
+    #import pdb; pdb.set_trace()
+    host_name = host_name.replace("]", "").replace("[", "")
+    host_names = host_name.split(";")
+    if isinstance(host_names, list):
+        for name in host_names:
+            host_ip.append(duthost.host.options['inventory_manager'].get_host(name).get_vars()['ansible_host'])
+    else :
+        host_ip.append(duthost.host.options['inventory_manager'].get_host(host_name).get_vars()['ansible_host'])
+
     return host_ip
 
 @pytest.fixture(scope = "module")
@@ -221,23 +233,35 @@ def ixia_api_server_session(
 
  # move to helper file?
 @pytest.fixture(scope = "function")
-def get_ixia_port_list( ixia_chassis, testbed):
+def get_ixia_port_list( ixia_chassis, testbed, duthost):
     #get port list from csv file
     ixia = ixia_chassis
-    ixChassisIpList = [ixia]
+    ixChassisIpList = ixia
     confvalue = testbed['conf-name']
     table = pd.read_csv(r'../ansible/files/sonic_ixia_links.csv')
     portlist = []
     table1 = table.loc[table['conf-name'] == confvalue]
     #check if 'ixia_port' column is null
     portinfolist = table1['ixia_port'].values.tolist()
-    for portinfo in portinfolist:
-        pattern = r'card(\d+)/port(\d+)'
-        if isinstance(portinfo, str):
-            m = re.match(pattern, portinfo)
-            card = m.group(1) 
-            port = m.group(2)
-            portlist.append([ixChassisIpList[0],card,port])
+    vm_baselist = table1['vm_base'].values.tolist()
+    try:
+        for vm_info,portinfo in zip(vm_baselist, portinfolist):
+                      
+            host_ip = duthost.host.options['inventory_manager'].get_host(vm_info).get_vars()['ansible_host']
+            pattern = r'card(\d+)/port(\d+)'
+            if isinstance(portinfo, str):
+                m = re.match(pattern, portinfo)
+                card = m.group(1) 
+                port = m.group(2)
+                portlist.append([host_ip,card,port])
+    except:
+        for portinfo in portinfolist:
+            pattern = r'card(\d+)/port(\d+)'
+            if isinstance(portinfo, str):
+                m = re.match(pattern, portinfo)
+                card = m.group(1) 
+                port = m.group(2)
+                portlist.append([ixChassisIpList[0],card,port])
     #portlist = [[ixChassisIpList[0], 1, 53], [ixChassisIpList[0], 1, 54]]
     return portlist
 
@@ -250,6 +274,21 @@ def ixiahost(ixia_api_server_session, get_ixia_port_list):
     #clean up
     session.Ixnetwork.NewConfig()
     session.Session.remove()
+    
+@pytest.fixture(scope = "module", autouse=True)
+def common_function(testbed, duthost):
+    #set up
+    logger.info('common setup operations')
+    dut_name = testbed['duts'][0]
+    dut_ip = duthost.host.options['inventory_manager'].get_host(dut_name).get_vars()['ansible_host']
+    logger.info(dut_name)
+    logger.info(dut_ip)
+    #send_cmd(dut_ip, 'admin', 'admin', '')
+    yield
+    #clean up
+    
+    logger.info('common cleanup operations')
+
 '''
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
@@ -296,14 +335,7 @@ def pytest_runtest_makereport(item, call):
 	print(time_stop)
 	csv_save_path='/var/johnar/sonic-mgmt/tests/ixia/reporter/'+format(timestamp_real_now)+'.csv'
         columns=['id','starttime','finishtime','result','report_file','info']
-	'''
-        if os.path.lexists(csv_save_path):
-	    df_new = pd.DataFrame({"id": report.nodeid, "starttime": [time_start], "finishtime":[time_stop],"result":[call_result],"report_file":[report_file],'info':[resinfo]})
-            df_new.to_csv(csv_save_path,index=False, mode='a', header=False,columns=columns)
-        else:
-            df = pd.DataFrame({"id": report.nodeid, "starttime": [time_start], "finishtime":[time_stop],"result":[call_result],"report_file":[report_file],'info':[resinfo]})
-            df.to_csv(csv_save_path,index=False,columns=columns)
-	 '''
+
 	
 	if os.path.lexists(csv_save_path):
             if call_result == 'PASSED':
@@ -331,3 +363,6 @@ def pytest_runtest_makereport(item, call):
             print('Global test environment tear-down')
             print('[  FAILED  ]')
 '''
+
+	
+
