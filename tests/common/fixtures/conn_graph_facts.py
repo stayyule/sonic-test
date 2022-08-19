@@ -49,6 +49,6 @@ def get_graph_facts(duthost, localhost, host_name):
             # its conn_graph_facts.
             if inv_map and inv_file in inv_map:
                 lab_conn_graph_file = os.path.join(base_path, "../../../ansible/files/{}".format(inv_map[inv_file]))
-                conn_graph_facts = localhost.conn_graph_facts(host=host_name, filename=lab_conn_graph_file)['ansible_facts']
-                return conn_graph_facts
+                #conn_graph_facts = localhost.conn_graph_facts(host=host_name, filename=lab_conn_graph_file)['ansible_facts']
+                #return conn_graph_facts
     return conn_graph_facts

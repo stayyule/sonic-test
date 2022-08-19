@@ -42,10 +42,10 @@ class AnsibleHostBase(object):
         if self.host.has_module(item):
             self.module_name = item
             self.module = getattr(self.host, item)
-
             return self._run
         else:
-            raise UnsupportedAnsibleModule("Unsupported module")
+            pass
+            #raise UnsupportedAnsibleModule("Unsupported module")
 
     def _run(self, *module_args, **complex_args):
         module_ignore_errors = complex_args.pop('module_ignore_errors', False)
