@@ -690,14 +690,17 @@ def get_connection_info(testbed):
 
     
 def get_ixia_license(testbed, duthost):
-    dutname = testbed['vm_base']
+    host_name = testbed['vm_base']
+    host_name = host_name.replace("]","").replace("[","")
+    host_names = host_name.split(";")
     license_info = []
-    if dutname != '':
-        hostvars = duthost.host.options['variable_manager']._hostvars[dutname]
-        license_server_ip = hostvars['license_server_ip']
-        license_mode = hostvars['license_mode']
-        license_tier = hostvars['license_tier']
-        license_info = [[license_server_ip], license_mode, license_tier]
+    for dutname in host_names:
+        if dutname != '':
+            hostvars = duthost.host.options['variable_manager']._hostvars[dutname]
+            license_server_ip = hostvars['license_server_ip']
+            license_mode = hostvars['license_mode']
+            license_tier = hostvars['license_tier']
+            license_info = [[license_server_ip], license_mode, license_tier]
     return license_info
     
     

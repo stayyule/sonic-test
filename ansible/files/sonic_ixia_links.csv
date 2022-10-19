@@ -4,7 +4,7 @@ vms-example-ixia-1,dut1port2,tcs82-100f-r0,eth25GE 14,card1/port3,1712
 vms-example-ixia-2,dut1port1,tcs82-100f-r0,eth1-2,card1/port49,
 vms-example-ixia-2,dut1port2,tcs82-100f-r0,eth1-3,card1/port50,
 vms-example-ixia-2,dut2port1,tcs82-100f-r1,eth1-4,card1/port2,
-vms-example-ixia-2,"dut1to2port1, dut1to2port2",tcs82-100f-r0,eth1-1,,
-vms-example-ixia-2,"dut2to1port1, dut2to1port2",tcs82-100f-r1,eth1-2,,
-pyh-example-ixia-1,dut1port1,tcs82-100f-r0,eth1-1,card1/port1,
-pyh-example-ixia-1,dut1port1,tcs82-100f-r0,eth1-2,card1/port2,
+vms-example-ixia-2,"dut1to2port1, dut1to2port2",dut3,eth1-1,card1/port1,
+vms-example-ixia-2,"dut2to1port1, dut2to1port2",dut3,eth1-2,card1/port2,
+pyh-example-ixia-1,dut1port1,tcs82-100f-r0,eth1-1,card1/port1,VM0600
+pyh-example-ixia-1,dut1port1,tcs82-100f-r0,eth1-2,card1/port2,VM0601

@@ -122,8 +122,17 @@ def ixia_chassis(testbed, duthost):
     Returns:
         Dictionary of Ixia Chassis IP/IPs.
     """
+    host_ip = []
     host_name = testbed["vm_base"]
-    host_ip = duthost.host.options['inventory_manager'].get_host(host_name).get_vars()['ansible_host']
+    #import pdb; pdb.set_trace()
+    host_name = host_name.replace("]", "").replace("[", "")
+    host_names = host_name.split(";")
+    if isinstance(host_names, list):
+        for name in host_names:
+            host_ip.append(duthost.host.options['inventory_manager'].get_host(name).get_vars()['ansible_host'])
+    else :
+        host_ip.append(duthost.host.options['inventory_manager'].get_host(host_name).get_vars()['ansible_host'])
+
     return host_ip
 
 @pytest.fixture(scope = "module")
@@ -192,23 +201,35 @@ def ixia_api_server_session(
 
  # move to helper file?
 @pytest.fixture(scope = "function")
-def get_ixia_port_list( ixia_chassis, testbed):
+def get_ixia_port_list( ixia_chassis, testbed, duthost):
     #get port list from csv file
     ixia = ixia_chassis
-    ixChassisIpList = [ixia]
+    ixChassisIpList = ixia
     confvalue = testbed['conf-name']
     table = pd.read_csv(r'../ansible/files/sonic_ixia_links.csv')
     portlist = []
     table1 = table.loc[table['conf-name'] == confvalue]
     #check if 'ixia_port' column is null
     portinfolist = table1['ixia_port'].values.tolist()
-    for portinfo in portinfolist:
-        pattern = r'card(\d+)/port(\d+)'
-        if isinstance(portinfo, str):
-            m = re.match(pattern, portinfo)
-            card = m.group(1) 
-            port = m.group(2)
-            portlist.append([ixChassisIpList[0],card,port])
+    vm_baselist = table1['vm_base'].values.tolist()
+    try:
+        for vm_info,portinfo in zip(vm_baselist, portinfolist):
+                      
+            host_ip = duthost.host.options['inventory_manager'].get_host(vm_info).get_vars()['ansible_host']
+            pattern = r'card(\d+)/port(\d+)'
+            if isinstance(portinfo, str):
+                m = re.match(pattern, portinfo)
+                card = m.group(1) 
+                port = m.group(2)
+                portlist.append([host_ip,card,port])
+    except:
+        for portinfo in portinfolist:
+            pattern = r'card(\d+)/port(\d+)'
+            if isinstance(portinfo, str):
+                m = re.match(pattern, portinfo)
+                card = m.group(1) 
+                port = m.group(2)
+                portlist.append([ixChassisIpList[0],card,port])
     #portlist = [[ixChassisIpList[0], 1, 53], [ixChassisIpList[0], 1, 54]]
     return portlist
 
